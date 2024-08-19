@@ -1,0 +1,47 @@
+
+1. aws.amazon.com
+2. complete sign up
+3. if account is already there enter your email and password and login
+4. go to aws management console
+5. sign into console
+6. search RDS (relational database service)
+7. scroll down there is option of create database. click on create database button
+8. select mysql
+9. choose free-tier option
+10. modify the db instance identifier name from database-1 name to any name which we want to give
+11. set credential setting => master-username = root , master-password = password
+12. set public access to "yes"
+13. click on create database
+14. this will take 2 minute to make status available on aws or for create a database
+15. now click on db-identifier
+16. go to connectivity and security option => click on vpc security groups url
+17. click on security-group-id
+18. click on edit-inbound-rules
+19. click on add rule
+20. under the type section where default custom is written search there mysql/aurora
+21. under the source section where default is custom leave as it is or select anywhere ip-v4
+22. click on save rule
+23. search databases and click again on db-identifier (to come on same place after configuring security)
+24. now check the connection 1. copy the endpoints which comes under endpoint&port 2. open mysql-workbench click on plus icon in the side of mysql connections
+25. now paste that copied endpoint from aws to the hostname field and give any random name as conncetion name lets say my-connection
+26. now enter username and password which we give in aws during creation of database. click on store in vault for password entry
+27. click on test connection
+28. after that there is successfully message pop up after that click on ok . and enter into new conncetion now our mysql-workbench is connected with amazon rds
+29. now come to spring project and go to application.properties file and replace the localhost with the endpoints which we are copied from amazon-rds
+30. remove driver class name and show sql option from application.properties file and set the same username and password which we enter in amazon-rds during creation of database
+31. now create database of any name in mysql-workbench lets say as my_aws as our database name
+32. note for amazon beanstalk our spring boot supposed to run on port 5000
+33. after that do maven clean and then maven install in intellij-idea to create jar file of our spring project 
+34. now again on aws search for elastic-beanstalk 
+35. click on create-application
+36. enter application name which we want lets say our application name is spring-crud-mysql-aws
+37. go to platform section  and click on choose a platform and select java 
+38. go to appliaction code section and select upload-your-code and then select local-file option and also enter version label as 1,2 ...
+39. click on choose file and select jar file which we created go to spring folder directory inside target folder select jar file and upload it
+40. click on next,next => go to database section and enable database enter username and password which we enter initially during creation of database 
+41. click on next,next,next,submit
+42. now elastic bean is launching our environment this will take some minute after success health from pending status become ok 
+43. now click on the url generated above health 
+44. this is our root url amazon-aws-generated-url  => now in postman because our request mapping is api then for create the url is http://amazon-aws-generated-url/api/create
+similar for get,delete,update based on our controller's url 
+45. we can also verify in mysql-workbench about our crud operation
